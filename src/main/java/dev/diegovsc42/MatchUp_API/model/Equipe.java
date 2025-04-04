@@ -8,9 +8,9 @@ public class Equipe {
     int tamanho;
     List<String> jogadores;
 
-    public Equipe(int tamanho) {
+    public Equipe(int tamanho, List<String> jogadores) {
         this.tamanho = tamanho;
-        this.jogadores = new ArrayList<>();
+        this.jogadores = jogadores;
     }
     public int getTamanho() {
         return tamanho;
@@ -37,6 +37,10 @@ public class Equipe {
     }
     public String removerJogadorDoFinal() {
         return jogadores.remove(jogadores.size()-1);
+    }
+
+    public void setJogadores(List<String> jogadores) {
+        this.jogadores = jogadores;
     }
 
 }

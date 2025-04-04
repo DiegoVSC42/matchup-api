@@ -1,7 +1,8 @@
 package dev.diegovsc42.MatchUp_API.service;
 
 import dev.diegovsc42.MatchUp_API.model.Equipe;
-import org.apache.logging.log4j.util.Strings;
+import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
+import dev.diegovsc42.MatchUp_API.model.Partida;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,53 +13,70 @@ import java.util.regex.Pattern;
 @Service
 public class EquipeService {
 
-    public List<Equipe> converterListaEmEquipes(String lista, int tamanhoEquipes){
-        List<String> nomes = formataNomes(lista);
-        return separarEquipes(nomes, tamanhoEquipes);
-    }
-    private List<String> formataNomes(String lista){
-        // Regex para capturar os nomes da lista numerada
+    public List<String> formataNomes(String lista){
+
         Pattern pattern = Pattern.compile("^\\d+\\.\\s*(.+)", Pattern.MULTILINE);
         Matcher matcher = pattern.matcher(lista);
 
         List<String> nomes = new ArrayList<>();
-        // Itera sobre os nomes encontrados
+
         while (matcher.find()) {
             nomes.add(matcher.group(1).trim());
         }
         return nomes;
     }
-    private List<Equipe> separarEquipes(List<String> nomes,int tamanhoEquipes){
-        List<Equipe> equipes = new ArrayList<>();
-        Equipe equipe1 = new Equipe(tamanhoEquipes);
-        Equipe equipe2 = new Equipe(tamanhoEquipes);
-        Equipe reservas = new Equipe(nomes.size() - (tamanhoEquipes*2));
+    public Partida separarEquipes(List<String> nomes, int tamanhoEquipes){
+        Partida partida = new Partida(
+                new Equipe(tamanhoEquipes, new ArrayList<>()),
+                new Equipe(tamanhoEquipes, new ArrayList<>()),
+                new Equipe(nomes.size() - (tamanhoEquipes*2), new ArrayList<>())
+        );
 
         for(int i = 0; i < nomes.size(); i++){
             if(i < tamanhoEquipes){
-                equipe1.getJogadores().add(nomes.get(i));
+                partida.getEquipeA().getJogadores().add(nomes.get(i));
             }else if(i < tamanhoEquipes * 2){
-                equipe2.getJogadores().add(nomes.get(i));
+                partida.getEquipeB().getJogadores().add(nomes.get(i));
             }else{
-                reservas.getJogadores().add(nomes.get(i));
+                partida.getReserva().getJogadores().add(nomes.get(i));
             }
         }
-        equipes.add(equipe1);
-        equipes.add(equipe2);
-        equipes.add(reservas);
 
-        return equipes;
+        return partida;
+    }
+    public Partida atualizarEquipes(Partida partida, char equipePerdedora) {
+        Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
+
+        if(EquipePerdedora.fromChar(equipePerdedora).equals(EquipePerdedora.A)) {
+            novaPartida.setEquipeA(substituirJogadoresComReserva(novaPartida.getEquipeA(), novaPartida.getReserva()));
+        } else {
+            novaPartida.setEquipeB(substituirJogadoresComReserva(novaPartida.getEquipeB(), novaPartida.getReserva()));
+        }
+
+        return novaPartida;
     }
 
-
-    public List<Equipe> atualizarEquipes(List<Equipe> equipes, int equipePerdedora) {
-        Equipe perdedores = equipes.get(equipePerdedora);
-        Equipe reservas = equipes.get(2);
-        realizarSubstituicoes(perdedores, reservas);
-        return equipes;
+    public Partida iniciarNovaPartidaComJogadoresSeparados(
+            Partida partida,
+            char equipePerdedora,
+            int quantidadeMovida)
+    {
+        Partida partidaAtualizada = atualizarEquipes(partida, equipePerdedora);
+        return redistribuirJogadores(partidaAtualizada,quantidadeMovida);
     }
 
-    private void realizarSubstituicoes(Equipe perdedores,Equipe reservas){
+    private Partida redistribuirJogadores(Partida partida, int quantidadeMovida) {
+        Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
+        for(int i = 0 ; i < quantidadeMovida; i++){
+            String aux = novaPartida.getEquipeA().getJogadores().get(i);
+            novaPartida.getEquipeA().getJogadores().set(i, novaPartida.getEquipeB().getJogadores().get(i));
+            novaPartida.getEquipeB().getJogadores().set(i, aux);
+        }
+        return novaPartida;
+    }
+
+    private Equipe substituirJogadoresComReserva(Equipe perdedores, Equipe reservas){
+        Equipe novaEquipe = new Equipe(perdedores.getTamanho(),perdedores.getJogadores());
         List<String> jogadoresRemovidosDaReserva = new ArrayList<>();
 
         int menorTamanho = Math.min(perdedores.getJogadores().size() - 1, reservas.getJogadores().size() - 1);
@@ -73,6 +91,6 @@ public class EquipeService {
         for (int i = jogadoresRemovidosDaReserva.size() - 1; i >= 0; i--) {
             reservas.getJogadores().add(jogadoresRemovidosDaReserva.get(i));
         }
-
+        return novaEquipe;
     }
 }
