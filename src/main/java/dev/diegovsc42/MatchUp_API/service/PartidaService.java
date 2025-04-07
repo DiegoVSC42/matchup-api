@@ -3,6 +3,8 @@ package dev.diegovsc42.MatchUp_API.service;
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,20 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class EquipeService {
+public class PartidaService {
 
-    public List<String> formataNomes(String lista){
-
-        Pattern pattern = Pattern.compile("^\\d+\\.\\s*(.+)", Pattern.MULTILINE);
-        Matcher matcher = pattern.matcher(lista);
-
-        List<String> nomes = new ArrayList<>();
-
-        while (matcher.find()) {
-            nomes.add(matcher.group(1).trim());
-        }
-        return nomes;
-    }
     public Partida separarEquipes(List<String> nomes, int tamanhoEquipes){
         Partida partida = new Partida(
                 new Equipe(tamanhoEquipes, new ArrayList<>()),
@@ -57,10 +47,10 @@ public class EquipeService {
     }
 
     public Partida iniciarNovaPartidaComJogadoresSeparados(
-            Partida partida,
+            int quantidadeMovida,
             char equipePerdedora,
-            int quantidadeMovida)
-    {
+            Partida partida
+        ){
         Partida partidaAtualizada = atualizarEquipes(partida, equipePerdedora);
         return redistribuirJogadores(partidaAtualizada,quantidadeMovida);
     }
@@ -93,4 +83,6 @@ public class EquipeService {
         }
         return novaEquipe;
     }
+
+
 }

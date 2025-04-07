@@ -1,9 +1,9 @@
 package dev.diegovsc42.MatchUp_API.model;
 
-import java.util.ArrayList;
+import lombok.Data;
 import java.util.List;
 
-
+@Data
 public class Equipe {
     int tamanho;
     List<String> jogadores;
@@ -12,35 +12,18 @@ public class Equipe {
         this.tamanho = tamanho;
         this.jogadores = jogadores;
     }
-    public int getTamanho() {
-        return tamanho;
-    }
-
-    public List<String> getJogadores() {
-        return jogadores;
-    }
 
     public void adicionarJogadorNoInicio(String jogador) {
         jogadores.add(0, jogador);
     }
 
-    public void adicionarJogadorNoFinal(String jogador) {
-        jogadores.add(jogador);
-    }
-
-    public String removerJogadorDoInicio() {
-        return jogadores.remove(0);
-    }
-
     public String removerJogador(int index){
         return jogadores.remove(index);
     }
+
     public String removerJogadorDoFinal() {
         return jogadores.remove(jogadores.size()-1);
     }
 
-    public void setJogadores(List<String> jogadores) {
-        this.jogadores = jogadores;
-    }
 
 }
