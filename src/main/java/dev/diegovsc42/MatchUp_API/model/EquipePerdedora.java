@@ -1,13 +1,16 @@
 package dev.diegovsc42.MatchUp_API.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum EquipePerdedora {
     A, B;
 
-    public static EquipePerdedora fromChar(char c) {
-        return switch (Character.toUpperCase(c)) {
-            case 'A' -> A;
-            case 'B' -> B;
-            default -> throw new IllegalArgumentException("Equipe inválida: " + c);
-        };
+    @JsonCreator
+    public static EquipePerdedora from(String value) {
+        try{
+            return EquipePerdedora.valueOf(value.toUpperCase());
+        }catch (IllegalArgumentException | NullPointerException e){
+            throw new IllegalArgumentException(value + " não é um valor valido para equipe perdedora, tente A ou B");
+        }
     }
 }

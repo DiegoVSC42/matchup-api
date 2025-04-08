@@ -1,10 +1,11 @@
 package dev.diegovsc42.MatchUp_API.dto;
 
+import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
 
-public record SeparacaoRequest (
+public record SeparacaoDTO(
         int quantidadeMovida,
-        char equipePerdedora,
+        EquipePerdedora equipePerdedora,
         Partida partida
     ){
 }

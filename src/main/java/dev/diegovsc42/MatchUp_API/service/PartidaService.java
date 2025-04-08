@@ -3,14 +3,10 @@ package dev.diegovsc42.MatchUp_API.service;
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class PartidaService {
@@ -34,10 +30,10 @@ public class PartidaService {
 
         return partida;
     }
-    public Partida atualizarEquipes(Partida partida, char equipePerdedora) {
+    public Partida atualizarEquipes(Partida partida, EquipePerdedora equipePerdedora) {
         Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
 
-        if(EquipePerdedora.fromChar(equipePerdedora).equals(EquipePerdedora.A)) {
+        if(equipePerdedora.equals(EquipePerdedora.A)) {
             novaPartida.setEquipeA(substituirJogadoresComReserva(novaPartida.getEquipeA(), novaPartida.getReserva()));
         } else {
             novaPartida.setEquipeB(substituirJogadoresComReserva(novaPartida.getEquipeB(), novaPartida.getReserva()));
@@ -48,7 +44,7 @@ public class PartidaService {
 
     public Partida iniciarNovaPartidaComJogadoresSeparados(
             int quantidadeMovida,
-            char equipePerdedora,
+            EquipePerdedora equipePerdedora,
             Partida partida
         ){
         Partida partidaAtualizada = atualizarEquipes(partida, equipePerdedora);
