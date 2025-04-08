@@ -20,7 +20,7 @@ public class ListaController {
 
     @PostMapping("/formatar-lista")
     public ResponseEntity<List<String>> formatarLista(@RequestBody String lista) {
-        List<String> nomes = listaService.formataNomes(lista);
+        List<String> nomes = listaService.extrairNomes(lista);
         return ResponseEntity.status(HttpStatus.CREATED).body(nomes);
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class PartidaService {
 
-    public Partida separarEquipes(List<String> nomes, int tamanhoEquipes){
+    public Partida criarPartida(List<String> nomes, int tamanhoEquipes){
         Partida partida = new Partida(
                 new Equipe(tamanhoEquipes, new ArrayList<>()),
                 new Equipe(tamanhoEquipes, new ArrayList<>()),
@@ -30,38 +30,20 @@ public class PartidaService {
 
         return partida;
     }
-    public Partida atualizarEquipes(Partida partida, EquipePerdedora equipePerdedora) {
+
+    public Partida atualizarPartida(Partida partida, EquipePerdedora equipePerdedora) {
         Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
 
         if(equipePerdedora.equals(EquipePerdedora.A)) {
-            novaPartida.setEquipeA(substituirJogadoresComReserva(novaPartida.getEquipeA(), novaPartida.getReserva()));
+            novaPartida.setEquipeA(substituirJogadoresDaEquipe(novaPartida.getEquipeA(), novaPartida.getReserva()));
         } else {
-            novaPartida.setEquipeB(substituirJogadoresComReserva(novaPartida.getEquipeB(), novaPartida.getReserva()));
+            novaPartida.setEquipeB(substituirJogadoresDaEquipe(novaPartida.getEquipeB(), novaPartida.getReserva()));
         }
 
         return novaPartida;
     }
 
-    public Partida iniciarNovaPartidaComJogadoresSeparados(
-            int quantidadeMovida,
-            EquipePerdedora equipePerdedora,
-            Partida partida
-        ){
-        Partida partidaAtualizada = atualizarEquipes(partida, equipePerdedora);
-        return redistribuirJogadores(partidaAtualizada,quantidadeMovida);
-    }
-
-    private Partida redistribuirJogadores(Partida partida, int quantidadeMovida) {
-        Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
-        for(int i = 0 ; i < quantidadeMovida; i++){
-            String aux = novaPartida.getEquipeA().getJogadores().get(i);
-            novaPartida.getEquipeA().getJogadores().set(i, novaPartida.getEquipeB().getJogadores().get(i));
-            novaPartida.getEquipeB().getJogadores().set(i, aux);
-        }
-        return novaPartida;
-    }
-
-    private Equipe substituirJogadoresComReserva(Equipe perdedores, Equipe reservas){
+    private Equipe substituirJogadoresDaEquipe(Equipe perdedores, Equipe reservas){
         Equipe novaEquipe = new Equipe(perdedores.getTamanho(),perdedores.getJogadores());
         List<String> jogadoresRemovidosDaReserva = new ArrayList<>();
 
@@ -79,6 +61,26 @@ public class PartidaService {
         }
         return novaEquipe;
     }
+
+    public Partida criarNovaPartidaComRedistribuicao(
+            int quantidadeMovida,
+            EquipePerdedora equipePerdedora,
+            Partida partida
+        ){
+        Partida partidaAtualizada = atualizarPartida(partida, equipePerdedora);
+        return trocarJogadoresEntreEquipes(partidaAtualizada,quantidadeMovida);
+    }
+
+    private Partida trocarJogadoresEntreEquipes(Partida partida, int quantidadeMovida) {
+        Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
+        for(int i = 0 ; i < quantidadeMovida; i++){
+            String aux = novaPartida.getEquipeA().getJogadores().get(i);
+            novaPartida.getEquipeA().getJogadores().set(i, novaPartida.getEquipeB().getJogadores().get(i));
+            novaPartida.getEquipeB().getJogadores().set(i, aux);
+        }
+        return novaPartida;
+    }
+
 
 
 }

@@ -20,19 +20,19 @@ public class PartidaController {
 
     @PostMapping("/cadastrar")
     public ResponseEntity<Partida> cadastrarLista(@RequestBody CadastroDTO request) {
-        Partida partida = partidaService.separarEquipes(request.jogadores(), request.tamanhoEquipes());
+        Partida partida = partidaService.criarPartida(request.jogadores(), request.tamanhoEquipes());
         return ResponseEntity.status(HttpStatus.CREATED).body(partida);
     }
 
     @PutMapping("/atualizar")
     public ResponseEntity<Partida> atualizarLista(@RequestBody AtualizacaoDTO request) {
-        Partida partida = partidaService.atualizarEquipes(request.partida(),request.equipePerdedora());
+        Partida partida = partidaService.atualizarPartida(request.partida(),request.equipePerdedora());
         return ResponseEntity.status(HttpStatus.OK).body(partida);
     }
 
     @PutMapping("/separar")
     public ResponseEntity<Partida> separarLista(@RequestBody SeparacaoDTO request) {
-        Partida partidaSeparada = partidaService.iniciarNovaPartidaComJogadoresSeparados(request.quantidadeMovida(),request.equipePerdedora(),request.partida());
+        Partida partidaSeparada = partidaService.criarNovaPartidaComRedistribuicao(request.quantidadeMovida(),request.equipePerdedora(),request.partida());
         return ResponseEntity.status(HttpStatus.OK).body(partidaSeparada);
     }
 }
