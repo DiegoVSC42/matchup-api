@@ -1,7 +1,7 @@
 package dev.diegovsc42.MatchUp_API.controller;
 
 import dev.diegovsc42.MatchUp_API.dto.AtualizacaoDTO;
-import dev.diegovsc42.MatchUp_API.dto.CadastroDTO;
+import dev.diegovsc42.MatchUp_API.dto.inicioDTO;
 import dev.diegovsc42.MatchUp_API.dto.SeparacaoDTO;
 import dev.diegovsc42.MatchUp_API.model.Partida;
 import dev.diegovsc42.MatchUp_API.service.PartidaService;
@@ -18,21 +18,22 @@ public class PartidaController {
     @Autowired
     private PartidaService partidaService;
 
-    @PostMapping("/cadastrar")
-    public ResponseEntity<Partida> cadastrarLista(@RequestBody CadastroDTO request) {
+    @PostMapping("/iniciar")
+    public ResponseEntity<Partida> iniciarPartida(@RequestBody inicioDTO request) {
         Partida partida = partidaService.criarPartida(request.jogadores(), request.tamanhoEquipes());
         return ResponseEntity.status(HttpStatus.CREATED).body(partida);
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<Partida> atualizarLista(@RequestBody AtualizacaoDTO request) {
+    public ResponseEntity<Partida> atualizarPartida(@RequestBody AtualizacaoDTO request) {
         Partida partida = partidaService.atualizarPartida(request.partida(),request.equipePerdedora());
         return ResponseEntity.status(HttpStatus.OK).body(partida);
     }
 
     @PutMapping("/separar")
-    public ResponseEntity<Partida> separarLista(@RequestBody SeparacaoDTO request) {
+    public ResponseEntity<Partida> separarJogadores(@RequestBody SeparacaoDTO request) {
         Partida partidaSeparada = partidaService.criarNovaPartidaComRedistribuicao(request.quantidadeMovida(),request.equipePerdedora(),request.partida());
         return ResponseEntity.status(HttpStatus.OK).body(partidaSeparada);
     }
+
 }

@@ -8,8 +8,11 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class Partida {
+    @EqualsAndHashCode.Include
     Equipe equipeA;
+    @EqualsAndHashCode.Include
     Equipe equipeB;
+    @EqualsAndHashCode.Include
     Equipe reserva;
 
     public Partida(Equipe equipeA, Equipe equipeB, Equipe reserva) {

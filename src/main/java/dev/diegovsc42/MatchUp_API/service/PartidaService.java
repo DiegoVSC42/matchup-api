@@ -15,7 +15,7 @@ public class PartidaService {
         Partida partida = new Partida(
                 new Equipe(tamanhoEquipes, new ArrayList<>()),
                 new Equipe(tamanhoEquipes, new ArrayList<>()),
-                new Equipe(nomes.size() - (tamanhoEquipes*2), new ArrayList<>())
+                new Equipe(Math.max(0, nomes.size() - (tamanhoEquipes * 2)), new ArrayList<>())
         );
 
         for(int i = 0; i < nomes.size(); i++){
@@ -47,7 +47,7 @@ public class PartidaService {
         Equipe novaEquipe = new Equipe(perdedores.getTamanho(),perdedores.getJogadores());
         List<String> jogadoresRemovidosDaReserva = new ArrayList<>();
 
-        int menorTamanho = Math.min(perdedores.getJogadores().size() - 1, reservas.getJogadores().size() - 1);
+        int menorTamanho = Math.min(perdedores.getTamanho() - 1, reservas.getTamanho() - 1);
 
         for (int i = menorTamanho; i >= 0; i--) {
             String jogadorSubstituto = reservas.removerJogador(i);

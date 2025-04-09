@@ -22,8 +22,8 @@ class ListaServiceTest {
     class ExtrairNomesTests {
 
         @Test
-        @DisplayName("Test1 - Deveria retornar a lista copiada do whatsapp usando '.' formatada para acessar os elementos via List")
-        void Test1() {
+        @DisplayName("Deve extrair nomes de lista formatada com números e ponto (ex: '1. Nome')")
+        void test1() {
             String lista = """
                 Futebol sábado 19h30 às 21h30
                 1. Caio
@@ -48,8 +48,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test2 - Deveria retornar uma lista vazia")
-        void Test2() {
+        @DisplayName("Deve retornar lista vazia quando a entrada for vazia")
+        void test2() {
             String lista = "";
             List<String> esperado = new ArrayList<>();
             List<String> resultado = listaService.extrairNomes(lista);
@@ -57,8 +57,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test3 - Deveria retornar a lista copiada do whatsapp usando '-' formatada para acessar os elementos via List")
-        void Test3() {
+        @DisplayName("Deve extrair nomes de lista formatada com números e hífen (ex: '1 - Nome')")
+        void test3() {
             String lista = """
                 Quem vai quarta?\s
                 21:00 as 23:00
@@ -87,8 +87,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test4 - Deveria extrair nomes mesmo com espaços a mais ou misturados")
-        void Test4() {
+        @DisplayName("Deve extrair nomes mesmo com espaços irregulares ao redor do separador")
+        void test4() {
             String lista = """
                 1  -    João
                 2.     Maria
@@ -101,8 +101,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test5 - Deveria ignorar linhas que não seguem o padrão de numeração")
-        void Test5() {
+        @DisplayName("Deve ignorar linhas que não contêm padrão de lista numerada")
+        void test5() {
             String lista = """
                 Lista do futsal ⚽
                 Confirmados:
@@ -119,8 +119,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test6 - Deveria manter nomes duplicados caso apareçam na lista")
-        void Test6() {
+        @DisplayName("Deve manter nomes duplicados quando presentes na lista original")
+        void test6() {
             String lista = """
                 1 - Tiago
                 2 - Tiago
@@ -132,8 +132,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test7 - Deveria extrair nomes com acentos e caracteres especiais")
-        void Test7() {
+        @DisplayName("Deve extrair nomes com caracteres especiais (acentos, hífens, pontos)")
+        void test7() {
             String lista = """
                 1 - José
                 2 - André
@@ -146,8 +146,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test8 - Deveria extrair nomes mesmo com numeração fora de ordem")
-        void Test8() {
+        @DisplayName("Deve extrair nomes mesmo com numeração fora de ordem sequencial")
+        void test8() {
             String lista = """
                 3 - Caio
                 1 - Tiago
@@ -159,8 +159,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test9 - Deveria extrair nomes com espaços à esquerda corretamente")
-        void Test9() {
+        @DisplayName("Deve extrair nomes corretamente mesmo com espaços não visíveis (ex: NBSP)")
+        void test9() {
             String lista = """
                 1 -  Tiago
                 2 - Rafael
@@ -172,8 +172,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test10 - Deveria extrair nomes com emojis")
-        void Test10() {
+        @DisplayName("Deve extrair nomes que contenham emojis junto ao texto")
+        void test10() {
             String lista = """
                 1 - Ana 🏐
                 2 - Juliana 🎉
@@ -184,8 +184,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test11 - Deveria extrair nomes com tabulação ao invés de espaço")
-        void Test11() {
+        @DisplayName("Deve extrair nomes quando separadores forem tabulações ao invés de espaços")
+        void test11() {
             String lista = "1\t-\tCaio\n2\t-\tLetícia\n3\t-\tDouglas";
             List<String> esperado = List.of("Caio", "Letícia", "Douglas");
             List<String> resultado = listaService.extrairNomes(lista);
@@ -193,8 +193,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test12 - Deveria extrair nomes com hífens, vírgulas ou compostos")
-        void Test12() {
+        @DisplayName("Deve extrair nomes compostos ou com pontuação (hífens, vírgulas)")
+        void test12() {
             String lista = """
                 1 - João-Paulo
                 2 - Maria Clara
@@ -206,8 +206,8 @@ class ListaServiceTest {
         }
 
         @Test
-        @DisplayName("Test13 - Deveria funcionar para todo tipo de separador")
-        void Test13() {
+        @DisplayName("Deve extrair nomes independentemente do tipo de separador (-, *, =>, .)")
+        void test13() {
             String lista = """
                 1 - Caio
                 2 * Letícia
@@ -218,5 +218,63 @@ class ListaServiceTest {
             List<String> resultado = listaService.extrairNomes(lista);
             assertThat(resultado).isEqualTo(esperado);
         }
+
+        @Test
+        @DisplayName("Deve extrair nomes de lista não numerada (um nome por linha, sem prefixos)")
+        void test14() {
+            String lista = """
+            Vôlei sábado 19h30 às 21h30
+            Marco
+            
+            Leandro
+            
+            Renato
+            
+            Rogério
+            
+            Caio
+            
+            Nina
+            
+            Letícia
+            
+            Daniel
+            
+            Eduardo\s
+            
+            Camila
+            
+            Otávio
+            
+            Fernanda
+            
+            Gustavo
+            
+            Rafael
+            
+            Beatriz
+            
+            Pedro
+            
+            Carolina
+            
+            Vinicius
+            
+            Júlia
+            
+            Thiago
+            
+            Larissa
+        """;
+            List<String> esperado = List.of(
+                    "Marco", "Leandro", "Renato", "Rogério", "Caio", "Nina",
+                    "Letícia", "Daniel", "Eduardo", "Camila", "Otávio", "Fernanda",
+                    "Gustavo", "Rafael", "Beatriz", "Pedro", "Carolina", "Vinicius",
+                    "Júlia", "Thiago", "Larissa"
+            );
+            List<String> resultado = listaService.extrairNomes(lista);
+            assertThat(resultado).isEqualTo(esperado);
+        }
+
     }
 }
