@@ -32,8 +32,7 @@ public class PartidaController {
 
     @PutMapping("/separar")
     public ResponseEntity<Partida> separarJogadores(@RequestBody SeparacaoDTO request) {
-        Partida partidaSeparada = partidaService.criarNovaPartidaComRedistribuicao(request.quantidadeMovida(),request.equipePerdedora(),request.partida());
+        Partida partidaSeparada = partidaService.trocarJogadoresEntreEquipes(request.quantidadeMovida(),request.partida());
         return ResponseEntity.status(HttpStatus.OK).body(partidaSeparada);
     }
-
 }

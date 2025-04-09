@@ -5,7 +5,6 @@ import dev.diegovsc42.MatchUp_API.model.Partida;
 
 public record SeparacaoDTO(
         int quantidadeMovida,
-        EquipePerdedora equipePerdedora,
         Partida partida
     ){
 }

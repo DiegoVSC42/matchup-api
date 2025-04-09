@@ -62,25 +62,12 @@ public class PartidaService {
         return novaEquipe;
     }
 
-    public Partida criarNovaPartidaComRedistribuicao(
-            int quantidadeMovida,
-            EquipePerdedora equipePerdedora,
-            Partida partida
-        ){
-        Partida partidaAtualizada = atualizarPartida(partida, equipePerdedora);
-        return trocarJogadoresEntreEquipes(partidaAtualizada,quantidadeMovida);
-    }
-
-    private Partida trocarJogadoresEntreEquipes(Partida partida, int quantidadeMovida) {
-        Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
+    public Partida trocarJogadoresEntreEquipes(int quantidadeMovida, Partida partida) {
         for(int i = 0 ; i < quantidadeMovida; i++){
-            String aux = novaPartida.getEquipeA().getJogadores().get(i);
-            novaPartida.getEquipeA().getJogadores().set(i, novaPartida.getEquipeB().getJogadores().get(i));
-            novaPartida.getEquipeB().getJogadores().set(i, aux);
+            String aux = partida.getEquipeA().getJogadores().get(i);
+            partida.getEquipeA().getJogadores().set(i, partida.getEquipeB().getJogadores().get(i));
+            partida.getEquipeB().getJogadores().set(i, aux);
         }
-        return novaPartida;
+        return partida;
     }
-
-
-
 }
