@@ -62,7 +62,7 @@ public class PartidaService {
         return novaEquipe;
     }
 
-    public Partida trocarJogadoresEntreEquipes(int quantidadeMovida, Partida partida) {
+    public Partida separarJogadores(int quantidadeMovida, Partida partida) {
         for(int i = 0 ; i < quantidadeMovida; i++){
             String aux = partida.getEquipeA().getJogadores().get(i);
             partida.getEquipeA().getJogadores().set(i, partida.getEquipeB().getJogadores().get(i));

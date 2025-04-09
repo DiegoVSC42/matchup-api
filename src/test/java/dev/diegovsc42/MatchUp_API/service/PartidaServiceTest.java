@@ -110,7 +110,7 @@ class PartidaServiceTest {
 
     @Nested
     @DisplayName("atualizarPartida")
-    class AtualizarPartidaTest {
+    class atualizarPartidaTest {
 
         @Test
         @DisplayName("Deveria colocar os 3 jogadores da reserva no inicio da equipe A e os 3 ultimos da equipe A vão para o final da reserva")
@@ -213,5 +213,77 @@ class PartidaServiceTest {
         }
     }
 
+    @Nested
+    @DisplayName("separarJogadores")
+    class separarPartidaTest{
 
+        @Test
+        @DisplayName("Deveria colocar os 3 jogadores do inicio da equipe A no inicio da equipe B e vice-versa")
+        void test1() {
+            //Arrange
+            Partida partida = new Partida(
+                    new Equipe(6, new ArrayList<>(List.of("Lucas", "Mariana", "João", "Ana", "Carlos", "Paulo"))),
+                    new Equipe(6, new ArrayList<>(List.of("Beatriz", "Felipe", "Larissa", "Gabriel", "Juliana", "Renato"))),
+                    new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
+            );
+
+            Partida partidaEsperada = new Partida(
+                    new Equipe(6, new ArrayList<>(List.of("Beatriz", "Felipe", "Larissa", "Ana", "Carlos", "Paulo"))),
+                    new Equipe(6, new ArrayList<>(List.of("Lucas", "Mariana", "João", "Gabriel", "Juliana", "Renato"))),
+                    new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
+            );
+
+            //Act
+            Partida resultado = partidaService.separarJogadores(3, partida);
+
+            //Assert
+            assertThat(partidaEsperada).isEqualTo(resultado);
+        }
+
+        @Test
+        @DisplayName("Deveria manter os times")
+        void test2() {
+            //Arrange
+            Partida partida = new Partida(
+                    new Equipe(6, new ArrayList<>(List.of("Lucas", "Mariana", "João", "Ana", "Carlos", "Paulo"))),
+                    new Equipe(6, new ArrayList<>(List.of("Beatriz", "Felipe", "Larissa", "Gabriel", "Juliana", "Renato"))),
+                    new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
+            );
+
+            Partida partidaEsperada = new Partida(
+                    new Equipe(6, new ArrayList<>(List.of("Lucas", "Mariana", "João", "Ana", "Carlos", "Paulo"))),
+                    new Equipe(6, new ArrayList<>(List.of("Beatriz", "Felipe", "Larissa", "Gabriel", "Juliana", "Renato"))),
+                    new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
+            );
+
+            //Act
+            Partida resultado = partidaService.separarJogadores(0, partida);
+
+            //Assert
+            assertThat(partidaEsperada).isEqualTo(resultado);
+        }
+
+        @Test
+        @DisplayName("Deveria inverter os times")
+        void test3() {
+            //Arrange
+            Partida partida = new Partida(
+                    new Equipe(6, new ArrayList<>(List.of("Lucas", "Mariana", "João", "Ana", "Carlos", "Paulo"))),
+                    new Equipe(6, new ArrayList<>(List.of("Beatriz", "Felipe", "Larissa", "Gabriel", "Juliana", "Renato"))),
+                    new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
+            );
+
+            Partida partidaEsperada = new Partida(
+                    new Equipe(6, new ArrayList<>(List.of("Beatriz", "Felipe", "Larissa", "Gabriel", "Juliana", "Renato"))),
+                    new Equipe(6, new ArrayList<>(List.of("Lucas", "Mariana", "João", "Ana", "Carlos", "Paulo"))),
+                    new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
+            );
+
+            //Act
+            Partida resultado = partidaService.separarJogadores(6, partida);
+
+            //Assert
+            assertThat(partidaEsperada).isEqualTo(resultado);
+        }
+    }
 }
