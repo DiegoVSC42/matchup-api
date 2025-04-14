@@ -3,6 +3,7 @@ package dev.diegovsc42.MatchUp_API.service;
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
+import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -234,7 +235,7 @@ class PartidaServiceTest {
             );
 
             //Act
-            Partida resultado = partidaService.separarJogadores(3, partida);
+            Partida resultado = partidaService.separarEquipes(3, TipoSeparacao.PRIMEIROS, partida);
 
             //Assert
             assertThat(partidaEsperada).isEqualTo(resultado);
@@ -257,7 +258,7 @@ class PartidaServiceTest {
             );
 
             //Act
-            Partida resultado = partidaService.separarJogadores(0, partida);
+            Partida resultado = partidaService.separarEquipes(0,TipoSeparacao.PRIMEIROS, partida);
 
             //Assert
             assertThat(partidaEsperada).isEqualTo(resultado);
@@ -280,7 +281,7 @@ class PartidaServiceTest {
             );
 
             //Act
-            Partida resultado = partidaService.separarJogadores(6, partida);
+            Partida resultado = partidaService.separarEquipes(6,TipoSeparacao.PRIMEIROS, partida);
 
             //Assert
             assertThat(partidaEsperada).isEqualTo(resultado);

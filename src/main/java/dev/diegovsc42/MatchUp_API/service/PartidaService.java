@@ -3,13 +3,20 @@ package dev.diegovsc42.MatchUp_API.service;
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
+import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
+import dev.diegovsc42.MatchUp_API.service.strategy.separacao.AleatorioStrategy;
+import dev.diegovsc42.MatchUp_API.service.strategy.separacao.PrimeirosStrategy;
+import dev.diegovsc42.MatchUp_API.service.strategy.separacao.SeparacaoStrategy;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PartidaService {
+    private final Map<TipoSeparacao, SeparacaoStrategy> mapStrategy = Map.of(
+            TipoSeparacao.PRIMEIROS, new PrimeirosStrategy(),
+            TipoSeparacao.ALEATORIO, new AleatorioStrategy()
+    );
 
     public Partida criarPartida(List<String> nomes, int tamanhoEquipes){
         Partida partida = new Partida(
@@ -43,6 +50,10 @@ public class PartidaService {
         return novaPartida;
     }
 
+    public Partida separarEquipes(int quantidadeMovida, TipoSeparacao tipoSeparacao, Partida partida) {
+        return mapStrategy.get(tipoSeparacao).separarJogadores(quantidadeMovida, partida);
+    }
+
     private Equipe substituirJogadoresDaEquipe(Equipe perdedores, Equipe reservas){
         Equipe novaEquipe = new Equipe(perdedores.getTamanho(),perdedores.getJogadores());
         List<String> jogadoresRemovidosDaReserva = new ArrayList<>();
@@ -62,12 +73,6 @@ public class PartidaService {
         return novaEquipe;
     }
 
-    public Partida separarJogadores(int quantidadeMovida, Partida partida) {
-        for(int i = 0 ; i < quantidadeMovida; i++){
-            String aux = partida.getEquipeA().getJogadores().get(i);
-            partida.getEquipeA().getJogadores().set(i, partida.getEquipeB().getJogadores().get(i));
-            partida.getEquipeB().getJogadores().set(i, aux);
-        }
-        return partida;
-    }
+
+
 }
