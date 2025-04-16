@@ -1,4 +1,4 @@
-package dev.diegovsc42.MatchUp_API.model;
+package dev.diegovsc42.MatchUp_API.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

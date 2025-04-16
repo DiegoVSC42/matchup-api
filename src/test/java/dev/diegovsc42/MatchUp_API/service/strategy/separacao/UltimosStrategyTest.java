@@ -2,7 +2,6 @@ package dev.diegovsc42.MatchUp_API.service.strategy.separacao;
 
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.Partida;
-import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
 import dev.diegovsc42.MatchUp_API.service.PartidaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UltimosStrategyTest {
@@ -38,7 +36,7 @@ class UltimosStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(3, TipoSeparacao.ULTIMOS, partida);
+        Partida resultado = partidaService.separarEquipes(3, "ULTIMOS", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);
@@ -61,7 +59,7 @@ class UltimosStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(0, TipoSeparacao.ULTIMOS, partida);
+        Partida resultado = partidaService.separarEquipes(0,"ULTIMOS", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);
@@ -84,7 +82,7 @@ class UltimosStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(6, TipoSeparacao.ULTIMOS, partida);
+        Partida resultado = partidaService.separarEquipes(6, "ULTIMOS", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);

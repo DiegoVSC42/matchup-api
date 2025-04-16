@@ -1,7 +1,6 @@
 package dev.diegovsc42.MatchUp_API.service;
 
 import dev.diegovsc42.MatchUp_API.model.Equipe;
-import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -122,7 +121,7 @@ class PartidaServiceTest {
                     new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
             );
 
-            EquipePerdedora equipePerdedora = EquipePerdedora.A;
+            String equipePerdedora = "A";
 
             Partida partidaEsperada = new Partida(
                     new Equipe(6, new ArrayList<>(List.of("Rafael", "Camila", "Thiago", "Lucas", "Mariana", "João"))),
@@ -147,7 +146,7 @@ class PartidaServiceTest {
                     new Equipe(3, new ArrayList<>(List.of("Rafael", "Camila", "Thiago")))
             );
 
-            EquipePerdedora equipePerdedora = EquipePerdedora.B;
+            String equipePerdedora = "B";
 
             Partida partidaEsperada = new Partida(
                     new Equipe(6, new ArrayList<>(List.of("Lucas", "Mariana", "João", "Ana", "Carlos", "Paulo"))),
@@ -172,7 +171,7 @@ class PartidaServiceTest {
                     new Equipe(9, new ArrayList<>(List.of("Gustavo", "Rafael", "Beatriz", "Pedro", "Carolina", "Vinicius", "Júlia", "Thiago", "Larissa")))
             );
 
-            EquipePerdedora equipePerdedora = EquipePerdedora.A;
+            String equipePerdedora = "A";
 
             Partida partidaEsperada = new Partida(
                     new Equipe(6, new ArrayList<>(List.of("Gustavo", "Rafael", "Beatriz", "Pedro", "Carolina", "Vinicius"))),
@@ -197,7 +196,7 @@ class PartidaServiceTest {
                     new Equipe(9, new ArrayList<>(List.of("Gustavo", "Rafael", "Beatriz", "Pedro", "Carolina", "Vinicius", "Júlia", "Thiago", "Larissa")))
             );
 
-            EquipePerdedora equipePerdedora = EquipePerdedora.B;
+            String equipePerdedora = "B";
 
             Partida partidaEsperada = new Partida(
                     new Equipe(6, new ArrayList<>(List.of("Marco", "Leandro", "Renato", "Rogério", "Caio", "Nina"))),

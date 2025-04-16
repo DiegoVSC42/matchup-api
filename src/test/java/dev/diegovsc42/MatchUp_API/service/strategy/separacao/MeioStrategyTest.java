@@ -2,7 +2,6 @@ package dev.diegovsc42.MatchUp_API.service.strategy.separacao;
 
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.Partida;
-import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
 import dev.diegovsc42.MatchUp_API.service.PartidaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class MeioStrategyTest {
     @Autowired
@@ -36,7 +35,7 @@ class MeioStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(3, TipoSeparacao.MEIO, partida);
+        Partida resultado = partidaService.separarEquipes(3, "MEIO", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);
@@ -59,7 +58,7 @@ class MeioStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(0, TipoSeparacao.MEIO, partida);
+        Partida resultado = partidaService.separarEquipes(0, "MEIO", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);
@@ -82,7 +81,7 @@ class MeioStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(6, TipoSeparacao.MEIO, partida);
+        Partida resultado = partidaService.separarEquipes(6, "MEIO", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);

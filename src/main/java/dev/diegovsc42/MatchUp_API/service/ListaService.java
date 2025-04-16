@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 public class ListaService {
 
     public List<String> extrairNomes(String lista) {
+
+
         /*
          * Expressão regular que captura linhas que:
          * - Podem começar com espaços em branco (\\s*)

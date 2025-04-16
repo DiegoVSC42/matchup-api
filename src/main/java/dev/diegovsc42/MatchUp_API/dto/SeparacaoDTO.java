@@ -1,11 +1,21 @@
 package dev.diegovsc42.MatchUp_API.dto;
 
+import dev.diegovsc42.MatchUp_API.enums.TipoSeparacao;
+import dev.diegovsc42.MatchUp_API.enums.validation.ValueOfEnum;
 import dev.diegovsc42.MatchUp_API.model.Partida;
-import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 public record SeparacaoDTO(
+        @Min(value = 1)
+        @NotNull
         int quantidadeMovida,
-        TipoSeparacao tipoSeparacao,
+
+        @NotNull
+        @ValueOfEnum(enumClass= TipoSeparacao.class, message = "deve ser um dos valores: [ALEATORIO | MEIO | PRIMEIROS | ULTIMOS]")
+        String tipoSeparacao,
+
+        @NotNull
         Partida partida
     ){
 }

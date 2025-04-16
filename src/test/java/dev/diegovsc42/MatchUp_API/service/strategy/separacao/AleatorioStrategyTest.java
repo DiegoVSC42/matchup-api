@@ -2,7 +2,6 @@ package dev.diegovsc42.MatchUp_API.service.strategy.separacao;
 
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.Partida;
-import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
 import dev.diegovsc42.MatchUp_API.service.PartidaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class AleatorioStrategyTest {
         partidaEsperada.getEquipeB().getJogadores().sort(String::compareTo);
 
         //Act
-        Partida resultado = partidaService.separarEquipes(0, TipoSeparacao.ALEATORIO, partida);
+        Partida resultado = partidaService.separarEquipes(0, "ALEATORIO", partida);
         resultado.getEquipeA().getJogadores().sort(String::compareTo);
         resultado.getEquipeB().getJogadores().sort(String::compareTo);
 
@@ -67,7 +66,7 @@ class AleatorioStrategyTest {
         partidaEsperada.getEquipeB().getJogadores().sort(String::compareTo);
 
         //Act
-        Partida resultado = partidaService.separarEquipes(6, TipoSeparacao.ALEATORIO, partida);
+        Partida resultado = partidaService.separarEquipes(6, "ALEATORIO", partida);
         resultado.getEquipeA().getJogadores().sort(String::compareTo);
         resultado.getEquipeB().getJogadores().sort(String::compareTo);
 

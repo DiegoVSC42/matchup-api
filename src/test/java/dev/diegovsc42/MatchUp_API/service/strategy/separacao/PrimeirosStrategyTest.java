@@ -2,10 +2,8 @@ package dev.diegovsc42.MatchUp_API.service.strategy.separacao;
 
 import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.Partida;
-import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
 import dev.diegovsc42.MatchUp_API.service.PartidaService;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +36,7 @@ class PrimeirosStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(3, TipoSeparacao.PRIMEIROS, partida);
+        Partida resultado = partidaService.separarEquipes(3,"PRIMEIROS", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);
@@ -61,7 +59,7 @@ class PrimeirosStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(0, TipoSeparacao.PRIMEIROS, partida);
+        Partida resultado = partidaService.separarEquipes(0,"PRIMEIROS", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);
@@ -84,7 +82,7 @@ class PrimeirosStrategyTest {
         );
 
         //Act
-        Partida resultado = partidaService.separarEquipes(6, TipoSeparacao.PRIMEIROS, partida);
+        Partida resultado = partidaService.separarEquipes(6,"PRIMEIROS", partida);
 
         //Assert
         assertThat(partidaEsperada).isEqualTo(resultado);

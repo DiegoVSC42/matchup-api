@@ -1,21 +1,21 @@
 package dev.diegovsc42.MatchUp_API.service;
 
 import dev.diegovsc42.MatchUp_API.model.Equipe;
-import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
-import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
 import dev.diegovsc42.MatchUp_API.service.strategy.separacao.*;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class PartidaService {
-    private final Map<TipoSeparacao, SeparacaoStrategy> mapStrategy = Map.of(
-            TipoSeparacao.PRIMEIROS, new PrimeirosStrategy(),
-            TipoSeparacao.ALEATORIO, new AleatorioStrategy(),
-            TipoSeparacao.MEIO, new MeioStrategy(),
-            TipoSeparacao.ULTIMOS, new UltimosStrategy()
+    private final Map<String, SeparacaoStrategy> mapStrategy = Map.of(
+            "PRIMEIROS", new PrimeirosStrategy(),
+            "ALEATORIO", new AleatorioStrategy(),
+            "MEIO", new MeioStrategy(),
+            "ULTIMOS", new UltimosStrategy()
     );
 
     public Partida criarPartida(List<String> nomes, int tamanhoEquipes){
@@ -38,10 +38,10 @@ public class PartidaService {
         return partida;
     }
 
-    public Partida atualizarPartida(Partida partida, EquipePerdedora equipePerdedora) {
+    public Partida atualizarPartida(Partida partida, String equipePerdedora) {
         Partida novaPartida = new Partida(partida.getEquipeA(),partida.getEquipeB(),partida.getReserva());
 
-        if(equipePerdedora.equals(EquipePerdedora.A)) {
+        if(equipePerdedora.equals("A")) {
             novaPartida.setEquipeA(substituirJogadoresDaEquipe(novaPartida.getEquipeA(), novaPartida.getReserva()));
         } else {
             novaPartida.setEquipeB(substituirJogadoresDaEquipe(novaPartida.getEquipeB(), novaPartida.getReserva()));
@@ -50,7 +50,7 @@ public class PartidaService {
         return novaPartida;
     }
 
-    public Partida separarEquipes(int quantidadeMovida, TipoSeparacao tipoSeparacao, Partida partida) {
+    public Partida separarEquipes(int quantidadeMovida, String tipoSeparacao, Partida partida) {
         return mapStrategy.get(tipoSeparacao).separarJogadores(quantidadeMovida, partida);
     }
 
