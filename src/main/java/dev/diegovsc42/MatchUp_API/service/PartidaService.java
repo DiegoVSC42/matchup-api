@@ -4,9 +4,7 @@ import dev.diegovsc42.MatchUp_API.model.Equipe;
 import dev.diegovsc42.MatchUp_API.model.EquipePerdedora;
 import dev.diegovsc42.MatchUp_API.model.Partida;
 import dev.diegovsc42.MatchUp_API.model.TipoSeparacao;
-import dev.diegovsc42.MatchUp_API.service.strategy.separacao.AleatorioStrategy;
-import dev.diegovsc42.MatchUp_API.service.strategy.separacao.PrimeirosStrategy;
-import dev.diegovsc42.MatchUp_API.service.strategy.separacao.SeparacaoStrategy;
+import dev.diegovsc42.MatchUp_API.service.strategy.separacao.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,7 +13,9 @@ import java.util.*;
 public class PartidaService {
     private final Map<TipoSeparacao, SeparacaoStrategy> mapStrategy = Map.of(
             TipoSeparacao.PRIMEIROS, new PrimeirosStrategy(),
-            TipoSeparacao.ALEATORIO, new AleatorioStrategy()
+            TipoSeparacao.ALEATORIO, new AleatorioStrategy(),
+            TipoSeparacao.MEIO, new MeioStrategy(),
+            TipoSeparacao.ULTIMOS, new UltimosStrategy()
     );
 
     public Partida criarPartida(List<String> nomes, int tamanhoEquipes){

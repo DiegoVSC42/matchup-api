@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum TipoSeparacao {
     PRIMEIROS,
-    ALEATORIO;
+    ALEATORIO,
+    MEIO,
+    ULTIMOS;
 
     @JsonCreator
     public static TipoSeparacao from(String value) {
