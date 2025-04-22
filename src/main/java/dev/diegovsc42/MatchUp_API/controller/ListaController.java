@@ -1,10 +1,8 @@
 package dev.diegovsc42.MatchUp_API.controller;
 
 
+import dev.diegovsc42.MatchUp_API.documentation.ListaControllerDocs;
 import dev.diegovsc42.MatchUp_API.service.ListaService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,16 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lista")
-@Tag(name = "Lista de jogadores", description = "Local onde pode ser feita a formatacão de uma lista para os padrões da APi")
-public class ListaController {
+@Tag(name = "Lista de jogadores", description = "Local onde pode ser feita a formatacão de uma lista para os padrões da API")
+public class ListaController implements ListaControllerDocs {
     @Autowired
     private ListaService listaService;
 
-    @Operation(summary = "Extrai todos os nomes de jogadores do texto", method = "POST")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Lista de jogadores formatada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Corpo da requisição vazio ou inválido")
-    })
     @PostMapping(value = "/formatar-lista", consumes = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<?> formatarLista(@RequestBody String lista) {
         if(lista == null || lista.trim().isEmpty()) {
