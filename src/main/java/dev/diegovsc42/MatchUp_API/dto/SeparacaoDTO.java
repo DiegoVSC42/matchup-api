@@ -12,7 +12,7 @@ public record SeparacaoDTO(
         int quantidadeMovida,
 
         @NotNull
-        @ValueOfEnum(enumClass= TipoSeparacao.class, message = "deve ser um dos valores: [ALEATORIO | MEIO | PRIMEIROS | ULTIMOS]")
+        @ValueOfEnum(enumClass= TipoSeparacao.class, message = "deve ser um dos valores: [ALEATORIO | EXTREMOS | MEIO | PRIMEIROS | ULTIMOS]")
         String tipoSeparacao,
 
         @NotNull

@@ -6,7 +6,8 @@ public enum TipoSeparacao {
     PRIMEIROS,
     ALEATORIO,
     MEIO,
-    ULTIMOS;
+    ULTIMOS,
+    EXTREMOS;
 
     @JsonCreator
     public static TipoSeparacao from(String value) {

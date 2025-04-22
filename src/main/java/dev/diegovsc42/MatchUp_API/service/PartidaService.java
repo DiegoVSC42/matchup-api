@@ -15,7 +15,8 @@ public class PartidaService {
             "PRIMEIROS", new PrimeirosStrategy(),
             "ALEATORIO", new AleatorioStrategy(),
             "MEIO", new MeioStrategy(),
-            "ULTIMOS", new UltimosStrategy()
+            "ULTIMOS", new UltimosStrategy(),
+            "EXTREMOS", new InverterExtremosStrategy()
     );
 
     public Partida criarPartida(List<String> nomes, int tamanhoEquipes){
