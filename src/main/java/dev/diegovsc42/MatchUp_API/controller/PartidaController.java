@@ -1,5 +1,6 @@
 package dev.diegovsc42.MatchUp_API.controller;
 
+import dev.diegovsc42.MatchUp_API.documentation.partida.iniciarPartidaDocs;
 import dev.diegovsc42.MatchUp_API.dto.AtualizacaoDTO;
 import dev.diegovsc42.MatchUp_API.dto.InicioDTO;
 import dev.diegovsc42.MatchUp_API.dto.SeparacaoDTO;
@@ -16,17 +17,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/partida")
-public class PartidaController {
+public class PartidaController implements iniciarPartidaDocs {
 
     @Autowired
     private PartidaService partidaService;
 
     @PostMapping("/iniciar")
-    @Operation(summary = "Inicia uma partida a partir de uma lista de jogadores", method = "POST")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Partida gerada com sucesso"),
-            @ApiResponse(responseCode = "400", description = "Lista de jogadores e/ou tamanhoEquipes inválidos")
-    })
     public ResponseEntity<Partida> iniciarPartida(@RequestBody @Valid InicioDTO request) {
         Partida partida = partidaService.criarPartida(request.jogadores(), request.tamanhoEquipes());
         return ResponseEntity.ok(partida);
