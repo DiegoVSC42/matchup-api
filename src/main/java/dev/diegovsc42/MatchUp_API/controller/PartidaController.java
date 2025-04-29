@@ -25,7 +25,7 @@ public class PartidaController implements IniciarPartidaDocs, AtualizarPartidaDo
 
     @PostMapping("/iniciar")
     public ResponseEntity<Partida> iniciarPartida(@RequestBody @Valid InicioDTO request) {
-        Partida partida = partidaService.criarPartida(request.jogadores(), request.tamanhoEquipes());
+        Partida partida = partidaService.iniciarPartida(request.jogadores(), request.tamanhoEquipes());
         return ResponseEntity.ok(partida);
     }
 

@@ -19,8 +19,8 @@ class PartidaServiceTest {
     private PartidaService partidaService;
 
     @Nested
-    @DisplayName("criarPartida")
-    class criarPartidaTests {
+    @DisplayName("Iniciar Partida")
+    class iniciarPartidaTests {
 
         @Test
         @DisplayName("Deveria separar os 6 primeiros para a equipe A, depois mais 6 para a B e o restante para a reserva")
@@ -39,7 +39,7 @@ class PartidaServiceTest {
             );
 
             //Act
-            Partida resultado = partidaService.criarPartida(nomes, tamanhoEquipes);
+            Partida resultado = partidaService.iniciarPartida(nomes, tamanhoEquipes);
 
             //Assert
             assertThat(partidaEsperada).isEqualTo(resultado);
@@ -61,7 +61,7 @@ class PartidaServiceTest {
             );
 
             //Act
-            Partida resultado = partidaService.criarPartida(nomes, tamanhoEquipes);
+            Partida resultado = partidaService.iniciarPartida(nomes, tamanhoEquipes);
 
             //Assert
             assertThat(partidaEsperada).isEqualTo(resultado);
@@ -80,7 +80,7 @@ class PartidaServiceTest {
             );
 
             //Act
-            Partida resultado = partidaService.criarPartida(nomes, tamanhoEquipes);
+            Partida resultado = partidaService.iniciarPartida(nomes, tamanhoEquipes);
 
             //Assert
             assertThat(partidaEsperada).isEqualTo(resultado);
@@ -99,7 +99,7 @@ class PartidaServiceTest {
             );
 
             //Act
-            Partida resultado = partidaService.criarPartida(nomes, tamanhoEquipes);
+            Partida resultado = partidaService.iniciarPartida(nomes, tamanhoEquipes);
 
             //Assert
             assertThat(partidaEsperada).isEqualTo(resultado);
@@ -108,7 +108,7 @@ class PartidaServiceTest {
     }
 
     @Nested
-    @DisplayName("atualizarPartida")
+    @DisplayName("Atualizar Partida")
     class atualizarPartidaTest {
 
         @Test

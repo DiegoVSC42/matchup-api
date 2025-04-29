@@ -19,7 +19,7 @@ public class PartidaService {
             "EXTREMOS", new InverterExtremosStrategy()
     );
 
-    public Partida criarPartida(List<String> nomes, int tamanhoEquipes){
+    public Partida iniciarPartida(List<String> nomes, int tamanhoEquipes){
         Partida partida = new Partida(
                 new Equipe(tamanhoEquipes, new ArrayList<>()),
                 new Equipe(tamanhoEquipes, new ArrayList<>()),
