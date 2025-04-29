@@ -14,7 +14,7 @@ import org.springframework.http.ResponseEntity;
 public interface SepararJogadoresDocs {
     String bodyAleatorio =
             """
-                {	
+                {
                     "quantidadeMovida": 3,
                     "tipoSeparacao": "ALEATORIO",
                     "partida": {
@@ -31,7 +31,7 @@ public interface SepararJogadoresDocs {
                             ]
                         },
                         "reserva": {
-                            "tamanho": 9,
+                            "tamanho": 3,
                             "jogadores": [
                                 "Rafael", "Camila", "Thiago"
                             ]
@@ -59,7 +59,7 @@ public interface SepararJogadoresDocs {
                             ]
                         },
                         "reserva": {
-                            "tamanho": 9,
+                            "tamanho": 3,
                             "jogadores": [
                                 "Rafael", "Camila", "Thiago"
                             ]
@@ -87,7 +87,7 @@ public interface SepararJogadoresDocs {
                             ]
                         },
                         "reserva": {
-                            "tamanho": 9,
+                            "tamanho": 3,
                             "jogadores": [
                                 "Rafael", "Camila", "Thiago"
                             ]
@@ -115,7 +115,7 @@ public interface SepararJogadoresDocs {
                             ]
                         },
                         "reserva": {
-                            "tamanho": 9,
+                            "tamanho": 3,
                             "jogadores": [
                                 "Rafael", "Camila", "Thiago"
                             ]
@@ -143,7 +143,7 @@ public interface SepararJogadoresDocs {
                             ]
                         },
                         "reserva": {
-                            "tamanho": 9,
+                            "tamanho": 3,
                             "jogadores": [
                                 "Rafael", "Camila", "Thiago"
                             ]
@@ -151,43 +151,281 @@ public interface SepararJogadoresDocs {
                     }
                 }
             """;
-
-    String response200 =
+    String body400QuantidadeInvalida = """
+            {
+              "quantidadeMovida": 0,
+              "tipoSeparacao": "EXTREMOS",
+              "partida": {
+                "equipeA": {
+                  "tamanho": 6,
+                  "jogadores": [
+                    "Lucas",
+                    "Mariana",
+                    "João",
+                    "Ana",
+                    "Carlos",
+                    "Paulo"
+                  ]
+                },
+                "equipeB": {
+                  "tamanho": 6,
+                  "jogadores": [
+                    "Beatriz",
+                    "Felipe",
+                    "Larissa",
+                    "Gabriel",
+                    "Juliana",
+                    "Renato"
+                  ]
+                },
+                "reserva": {
+                  "tamanho": 3,
+                  "jogadores": [
+                    "Rafael",
+                    "Camila",
+                    "Thiago"
+                  ]
+                }
+              }
+            }
+            """;
+    String body400TipoSeparacaoInvalido = """
+            {
+              "quantidadeMovida": 3,
+              "tipoSeparacao": "",
+              "partida": {
+                "equipeA": {
+                  "tamanho": 6,
+                  "jogadores": [
+                    "Lucas",
+                    "Mariana",
+                    "João",
+                    "Ana",
+                    "Carlos",
+                    "Paulo"
+                  ]
+                },
+                "equipeB": {
+                  "tamanho": 6,
+                  "jogadores": [
+                    "Beatriz",
+                    "Felipe",
+                    "Larissa",
+                    "Gabriel",
+                    "Juliana",
+                    "Renato"
+                  ]
+                },
+                "reserva": {
+                  "tamanho": 3,
+                  "jogadores": [
+                    "Rafael",
+                    "Camila",
+                    "Thiago"
+                  ]
+                }
+              }
+            }
+            """;
+    String body400PartidaInvalida = """
+            {
+              "quantidadeMovida": 3,
+              "tipoSeparacao": "MEIO",
+              "partida": ""
+            }
+            """;
+    String response200Aleatorio =
             """
                     {
-                    	"equipeA": {
-                    		"tamanho": 6,
-                    		"jogadores": [
-                    			"Lucas",
-                    			"Mariana",
-                    			"João",
-                    			"Beatriz",
-                    			"Felipe",
-                    			"Larissa"
-                    		]
-                    	},
-                    	"equipeB": {
-                    		"tamanho": 6,
-                    		"jogadores": [
-                    			"Ana",
-                    			"Carlos",
-                    			"Paulo",
-                    			"Gabriel",
-                    			"Juliana",
-                    			"Renato"
-                    		]
-                    	},
-                    	"reserva": {
-                    		"tamanho": 9,
-                    		"jogadores": [
-                    			"Rafael",
-                    			"Camila",
-                    			"Thiago"
-                    		]
-                    	}
-                    }
+                             	"equipeA": {
+                             		"tamanho": 6,
+                             		"jogadores": [
+                             			"Carlos",
+                             			"João",
+                             			"Mariana",
+                             			"Larissa",
+                             			"Felipe",
+                             			"Beatriz"
+                             		]
+                             	},
+                             	"equipeB": {
+                             		"tamanho": 6,
+                             		"jogadores": [
+                             			"Renato",
+                             			"Gabriel",
+                             			"Juliana",
+                             			"Paulo",
+                             			"Ana",
+                             			"Lucas"
+                             		]
+                             	},
+                             	"reserva": {
+                             		"tamanho": 3,
+                             		"jogadores": [
+                             			"Rafael",
+                             			"Camila",
+                             			"Thiago"
+                             		]
+                             	}
+                             }
             """;
-    String response400 ="Corpo da requisição vazio ou inválido";
+    String response200Primeiros = """
+            {
+                "equipeA": {
+                    "tamanho": 6,
+                    "jogadores": [
+                        "Beatriz",
+                        "Felipe",
+                        "Larissa",
+                        "Ana",
+                        "Carlos",
+                        "Paulo"
+                    ]
+                },
+                "equipeB": {
+                    "tamanho": 6,
+                    "jogadores": [
+                        "Lucas",
+                        "Mariana",
+                        "João",
+                        "Gabriel",
+                        "Juliana",
+                        "Renato"
+                    ]
+                },
+                "reserva": {
+                    "tamanho": 3,
+                    "jogadores": [
+                        "Rafael",
+                        "Camila",
+                        "Thiago"
+                    ]
+                }
+            }
+            """;
+    String response200Meio = """
+            {
+            	"equipeA": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Lucas",
+            			"Mariana",
+            			"Larissa",
+            			"Gabriel",
+            			"Juliana",
+            			"Paulo"
+            		]
+            	},
+            	"equipeB": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Beatriz",
+            			"Felipe",
+            			"João",
+            			"Ana",
+            			"Carlos",
+            			"Renato"
+            		]
+            	},
+            	"reserva": {
+            		"tamanho": 3,
+            		"jogadores": [
+            			"Rafael",
+            			"Camila",
+            			"Thiago"
+            		]
+            	}
+            }
+            """;
+    String response200Ultimos = """
+            {
+            	"equipeA": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Lucas",
+            			"Mariana",
+            			"João",
+            			"Gabriel",
+            			"Juliana",
+            			"Renato"
+            		]
+            	},
+            	"equipeB": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Beatriz",
+            			"Felipe",
+            			"Larissa",
+            			"Ana",
+            			"Carlos",
+            			"Paulo"
+            		]
+            	},
+            	"reserva": {
+            		"tamanho": 3,
+            		"jogadores": [
+            			"Rafael",
+            			"Camila",
+            			"Thiago"
+            		]
+            	}
+            }
+            """;
+    String response200Extremos = """
+            {
+            	"equipeA": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Lucas",
+            			"Mariana",
+            			"João",
+            			"Beatriz",
+            			"Felipe",
+            			"Larissa"
+            		]
+            	},
+            	"equipeB": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Ana",
+            			"Carlos",
+            			"Paulo",
+            			"Gabriel",
+            			"Juliana",
+            			"Renato"
+            		]
+            	},
+            	"reserva": {
+            		"tamanho": 3,
+            		"jogadores": [
+            			"Rafael",
+            			"Camila",
+            			"Thiago"
+            		]
+            	}
+            }
+            """;
+    String response400QuantidadeInvalida = """
+            {
+                "erros": {
+                    "quantidadeMovida": "deve ser maior que ou igual à 1"
+                }
+            }
+            """;
+    String response400TipoSeparacaoInvalido = """
+            {
+            	"erros": {
+            		"tipoSeparacao": "deve ser um dos valores: [ALEATORIO | EXTREMOS | MEIO | PRIMEIROS | ULTIMOS]",
+            	}
+            }
+            """;
+    String response400PartidaInvalida = """
+            {
+            	"erros": {
+            		"body": "corpo da requisição inválido ou malformado"
+            	}
+            }
+            """;
     @Operation(
             summary = "Separa os times de uma partida de várias formas através do valor para quantidade a ser movida e do tipo de separação",
             description = "Processa uma lista formatada, um valor N para quantidade movida e um valor para o tipo de separação que pode ser:\n\n" +
@@ -227,6 +465,21 @@ public interface SepararJogadoresDocs {
                                             summary = "Lista completa com 3 jogadores a serem trocados e tipo de separação pelos extremos",
                                             name = "separacao-extremos",
                                             value = bodyExtremos
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Quantidade a ser movida inválida",
+                                            name = "separacao-quantidadeMovida-invalida",
+                                            value = body400QuantidadeInvalida
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Tipo de separação inválido",
+                                            name = "separacao-tipoSeparacao-invalido",
+                                            value = body400TipoSeparacaoInvalido
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Partida invalida",
+                                            name = "separacao-partida-invalida",
+                                            value = body400PartidaInvalida
                                     )
                             }
                     )
@@ -239,7 +492,33 @@ public interface SepararJogadoresDocs {
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = SeparacaoDTO.class),
-                            examples = @ExampleObject(value = response200)
+                            examples = {
+                                    @ExampleObject(
+                                            summary = "Lista completa com 3 jogadores a serem trocados e tipo de separação aleatória",
+                                            name = "separacao-aleatoria",
+                                            value = response200Aleatorio
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Lista completa com 3 jogadores a serem trocados e tipo de separação pelos primeiros",
+                                            name = "separacao-primeiros",
+                                            value = response200Primeiros
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Lista completa com 3 jogadores a serem trocados e tipo de separação pelo meio",
+                                            name = "separacao-meio",
+                                            value = response200Meio
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Lista completa com 3 jogadores a serem trocados e tipo de separação pelos últimos",
+                                            name = "separacao-ultimos",
+                                            value = response200Ultimos
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Lista completa com 3 jogadores a serem trocados e tipo de separação pelos extremos",
+                                            name = "separacao-extremos",
+                                            value = response200Extremos
+                                    )
+                            }
                     )
 
             ),
@@ -248,10 +527,26 @@ public interface SepararJogadoresDocs {
                     description = "Dados inválidos",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            examples = @ExampleObject(value = response400)
+                            examples = {
+                                    @ExampleObject(
+                                            summary = "Quantidade a ser movida inválida",
+                                            name = "separacao-quantidadeMovida-invalida",
+                                            value = response400QuantidadeInvalida
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Tipo de separação inválido",
+                                            name = "separacao-tipoSeparacao-invalido",
+                                            value = response400TipoSeparacaoInvalido
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Partida invalida",
+                                            name = "separacao-partida-invalida",
+                                            value = response400PartidaInvalida
+                                    )
+                            }
                     )
             )
     })
-    public ResponseEntity<?> separarJogadores(SeparacaoDTO quest);
+    ResponseEntity<?> separarJogadores(SeparacaoDTO quest);
 
 }

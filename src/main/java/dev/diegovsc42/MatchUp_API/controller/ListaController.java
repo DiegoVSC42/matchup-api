@@ -23,9 +23,6 @@ public class ListaController implements ListaControllerDocs {
 
     @PostMapping(value = "/formatar-lista", consumes = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<?> formatarLista(@RequestBody String lista) {
-        if(lista == null || lista.trim().isEmpty()) {
-            return ResponseEntity.badRequest().body("Corpo da requisição vazio ou inválido");
-        }
         List<String> nomes = listaService.extrairNomes(lista);
         return ResponseEntity.ok().body(nomes);
     }

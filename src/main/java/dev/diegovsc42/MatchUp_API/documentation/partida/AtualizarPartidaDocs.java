@@ -13,86 +13,247 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 public interface AtualizarPartidaDocs {
-    String bodyEX1 =
+    String body200A =
         """
             {
-                    "equipePerdedora": "A",
-                    "jogadores":\s
-                        [
-                        "Marco","Leandro","Renato","Rogério","Caio","Nina","Letícia","Daniel","Eduardo","Camila","Otávio","Fernanda","Gustavo","Rafael","Beatriz","Pedro","Carolina","Vinicius","Júlia","Thiago","Larissa"
+                "equipePerdedora":"A",
+                "partida":{
+                    "equipeA": {
+                        "tamanho": 6,
+                        "jogadores": [
+                            "Marco",
+                            "Leandro",
+                            "Renato",
+                            "Rogério",
+                            "Caio",
+                            "Nina"
                         ]
-            }
-        """;
-    String bodyEX2 =
-        """
-            {
-                    "equipePerdedora": "B",
-                    "jogadores":\s
-                        [
-                        "Marco","Leandro","Renato","Rogério","Caio","Nina","Letícia","Daniel","Eduardo","Camila","Otávio","Fernanda","Gustavo","Rafael","Beatriz","Pedro","Carolina","Vinicius","Júlia","Thiago","Larissa"
+                    },
+                    "equipeB": {
+                        "tamanho": 6,
+                        "jogadores": [
+                            "Letícia",
+                            "Daniel",
+                            "Eduardo",
+                            "Camila",
+                            "Otávio",
+                            "Fernanda"
                         ]
-            }
-        """;
-    String bodyEX3 =
-        """
-            {
-                    "equipePerdedora": "",
-                    "jogadores":\s
-                        [
-                        "Marco","Leandro","Renato","Rogério","Caio","Nina","Letícia","Daniel","Eduardo","Camila","Otávio","Fernanda","Gustavo","Rafael","Beatriz","Pedro","Carolina","Vinicius","Júlia","Thiago","Larissa"
+                    },
+                    "reserva": {
+                        "tamanho": 9,
+                        "jogadores": [
+                            "Gustavo",
+                            "Rafael",
+                            "Beatriz",
+                            "Pedro",
+                            "Carolina",
+                            "Vinicius",
+                            "Júlia",
+                            "Thiago",
+                            "Larissa"
                         ]
+                    }
+                }
             }
         """;
-    String bodyEX4 =
+    String body200B =
         """
             {
-                    "equipePerdedora": "A",
-                    "jogadores":\s
-                        []
-            }
+                    	"equipePerdedora":"B",
+                    	"partida":{
+                    		"equipeA": {
+                    			"tamanho": 6,
+                    			"jogadores": [
+                    				"Marco",
+                    				"Leandro",
+                    				"Renato",
+                    				"Rogério",
+                    				"Caio",
+                    				"Nina"
+                    			]
+                    		},
+                    		"equipeB": {
+                    			"tamanho": 6,
+                    			"jogadores": [
+                    				"Letícia",
+                    				"Daniel",
+                    				"Eduardo",
+                    				"Camila",
+                    				"Otávio",
+                    				"Fernanda"
+                    			]
+                    		},
+                    		"reserva": {
+                    			"tamanho": 9,
+                    			"jogadores": [
+                    				"Gustavo",
+                    				"Rafael",
+                    				"Beatriz",
+                    				"Pedro",
+                    				"Carolina",
+                    				"Vinicius",
+                    				"Júlia",
+                    				"Thiago",
+                    				"Larissa"
+                    			]
+                    		}
+                    	}
+                    }
         """;
-    String bodyEX5 = "\"\"";
-    String responseEX1 = """
-                                    {
-                                    	"equipeA": {
-                                    		"tamanho": 6,
-                                    		"jogadores": [
-                                    			"Marco",
-                                    			"Leandro",
-                                    			"Renato",
-                                    			"Rogério",
-                                    			"Caio",
-                                    			"Nina"
-                                    		]
-                                    	},
-                                    	"equipeB": {
-                                    		"tamanho": 6,
-                                    		"jogadores": [
-                                    			"Letícia",
-                                    			"Daniel",
-                                    			"Eduardo",
-                                    			"Camila",
-                                    			"Otávio",
-                                    			"Fernanda"
-                                    		]
-                                    	},
-                                    	"reserva": {
-                                    		"tamanho": 9,
-                                    		"jogadores": [
-                                    			"Gustavo",
-                                    			"Rafael",
-                                    			"Beatriz",
-                                    			"Pedro",
-                                    			"Carolina",
-                                    			"Vinicius",
-                                    			"Júlia",
-                                    			"Thiago",
-                                    			"Larissa"
-                                    		]
-                                    	}
-                                    }
-                                    """;
-    String responseEX2  = "Corpo da requisição vazio ou inválido";
+    String body400EquipePerdedoraVazia =
+        """
+            {
+                    	"equipePerdedora":"",
+                    	"partida":{
+                    		"equipeA": {
+                    			"tamanho": 6,
+                    			"jogadores": [
+                    				"Marco",
+                    				"Leandro",
+                    				"Renato",
+                    				"Rogério",
+                    				"Caio",
+                    				"Nina"
+                    			]
+                    		},
+                    		"equipeB": {
+                    			"tamanho": 6,
+                    			"jogadores": [
+                    				"Letícia",
+                    				"Daniel",
+                    				"Eduardo",
+                    				"Camila",
+                    				"Otávio",
+                    				"Fernanda"
+                    			]
+                    		},
+                    		"reserva": {
+                    			"tamanho": 9,
+                    			"jogadores": [
+                    				"Gustavo",
+                    				"Rafael",
+                    				"Beatriz",
+                    				"Pedro",
+                    				"Carolina",
+                    				"Vinicius",
+                    				"Júlia",
+                    				"Thiago",
+                    				"Larissa"
+                    			]
+                    		}
+                    	}
+                    }
+        """;
+    String body400PartidaVazia ="""
+        {
+                "equipePerdedora":"A"
+        }
+        """;
+    String body400BodyVazio = "\"\"";
+
+    String response200A = """
+            {
+            	"equipeA": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Gustavo",
+            			"Rafael",
+            			"Beatriz",
+            			"Pedro",
+            			"Carolina",
+            			"Vinicius"
+            		]
+            	},
+            	"equipeB": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Letícia",
+            			"Daniel",
+            			"Eduardo",
+            			"Camila",
+            			"Otávio",
+            			"Fernanda"
+            		]
+            	},
+            	"reserva": {
+            		"tamanho": 9,
+            		"jogadores": [
+            			"Júlia",
+            			"Thiago",
+            			"Larissa",
+            			"Marco",
+            			"Leandro",
+            			"Renato",
+            			"Rogério",
+            			"Caio",
+            			"Nina"
+            		]
+            	}
+            }
+            """;
+
+    String response200B = """
+            {
+            	"equipeA": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Marco",
+            			"Leandro",
+            			"Renato",
+            			"Rogério",
+            			"Caio",
+            			"Nina"
+            		]
+            	},
+            	"equipeB": {
+            		"tamanho": 6,
+            		"jogadores": [
+            			"Gustavo",
+            			"Rafael",
+            			"Beatriz",
+            			"Pedro",
+            			"Carolina",
+            			"Vinicius"
+            		]
+            	},
+            	"reserva": {
+            		"tamanho": 9,
+            		"jogadores": [
+            			"Júlia",
+            			"Thiago",
+            			"Larissa",
+            			"Letícia",
+            			"Daniel",
+            			"Eduardo",
+            			"Camila",
+            			"Otávio",
+            			"Fernanda"
+            		]
+            	}
+            }
+            """;
+    String response400EquipePerdedoraVazia = """
+            {
+            	"erros": {
+            		"equipePerdedora": "deve ser um dos valores: [A | B]"
+            	}
+            }
+            """;
+    String response400PartidaVazia = """
+            {
+            	"erros": {
+            		"partida": "não deve ser nulo"
+            	}
+            }
+            """;
+    String response400BodyVazio = """
+            {
+            	"erros": {
+            		"body": "corpo da requisição está ausente"
+            	}
+            }
+            """;
     @Operation(
             summary = "Atualiza uma partida substituindo os jogadores do time derrotado pelos jogadores da reserva",
             description = "Processa uma lista formatada e um valor para equipe derrotada e substitui os jogadores dessa equipe pelos da reserva de acordo com a orde mde chegada",
@@ -104,29 +265,29 @@ public interface AtualizarPartidaDocs {
                             schema = @Schema(implementation = AtualizacaoDTO.class),
                             examples = {
                                     @ExampleObject(
-                                            summary = "Lista completa com A derrotada",
+                                            summary = "Partida completa com A derrotada",
                                             name = "Formato válido - 21 jogadores e equipe perdedora = A",
-                                            value = bodyEX1
+                                            value = body200A
                                     ),
                                     @ExampleObject(
-                                            summary = "Lista completa com B derrotada",
+                                            summary = "Partida completa com B derrotada",
                                             name = "Formato válido - 21 jogadores e equipe perdedora = B",
-                                            value = bodyEX2
+                                            value = body200B
                                     ),
                                     @ExampleObject(
                                             summary = "Equipe perdedora inválido ou vazio",
                                             name = "Formato inválido - equipe perdedora vazio",
-                                            value = bodyEX3
+                                            value = body400EquipePerdedoraVazia
                                     ),
                                     @ExampleObject(
-                                            summary = "Lista de jogadores vazia",
+                                            summary = "Partida vazia",
                                             name = "Formato inválido - lista de jogadores não pode estar vazia",
-                                            value = bodyEX4
+                                            value = body400PartidaVazia
                                     ),
                                     @ExampleObject(
                                             summary = "Corpo da requisição vazio",
                                             name = "Formato inválido - corpo da requisição não pode estar vazio",
-                                            value = bodyEX5
+                                            value = body400BodyVazio
                                     ),
 
                             }
@@ -140,7 +301,18 @@ public interface AtualizarPartidaDocs {
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = AtualizacaoDTO.class),
-                            examples = @ExampleObject(value = responseEX1)
+                            examples = {
+                                    @ExampleObject(
+                                            summary = "Partida completa com A derrotada",
+                                            name = "Formato válido - 21 jogadores e equipe perdedora = A",
+                                            value = response200A
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Partida completa com B derrotada",
+                                            name = "Formato válido - 21 jogadores e equipe perdedora = B",
+                                            value = response200B
+                                    ),
+                            }
                     )
 
             ),
@@ -149,9 +321,25 @@ public interface AtualizarPartidaDocs {
                     description = "Partida e/ou EquipePerdedora inválidos",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            examples = @ExampleObject(value = responseEX2)
+                            examples = {
+                                    @ExampleObject(
+                                            summary = "Equipe perdedora inválido ou vazio",
+                                            name = "Formato inválido - equipe perdedora vazio",
+                                            value = response400EquipePerdedoraVazia
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Partida vazia",
+                                            name = "Formato inválido - lista de jogadores não pode estar vazia",
+                                            value = response400PartidaVazia
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Corpo da requisição vazio",
+                                            name = "Formato inválido - corpo da requisição não pode estar vazio",
+                                            value = response400BodyVazio
+                                    ),
+                            }
                     )
             )
     })
-    public ResponseEntity<Partida> atualizarPartida(AtualizacaoDTO quest);
+    ResponseEntity<Partida> atualizarPartida(AtualizacaoDTO quest);
 }

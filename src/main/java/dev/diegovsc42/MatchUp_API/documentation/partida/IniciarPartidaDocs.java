@@ -19,7 +19,7 @@ public interface IniciarPartidaDocs {
             {
             	"tamanhoEquipes":6,
             	"jogadores":    \s
-            	[                                              		
+            	[
             		"Marco",
             		"Leandro",
             		"Renato",
@@ -55,12 +55,12 @@ public interface IniciarPartidaDocs {
     String bodyEX4 =
         """
             {
-                "tamanhoEquipes":0,
+                "tamanhoEquipes":1,
                 "jogadores":\s
             []
             }
         """;
-    String responseEX1 =
+    String response200 =
         """
             {
                 "equipeA": {
@@ -101,7 +101,29 @@ public interface IniciarPartidaDocs {
                 }
             }
         """;
-    String responseEX2  = "Corpo da requisição vazio ou inválido";
+    String responseBodyEmpty = """
+        {
+        	"erros": {
+        		"body": "corpo da requisição está ausente"
+        	}
+        }
+        """;
+
+    String responseEquipeZero = """
+        {
+        	"erros": {
+        		"tamanhoEquipes": "deve ser maior que ou igual à 1"
+        	}
+        }
+        """;
+
+    String responseJogadoresVazio = """
+        {
+            "erros": {
+                "jogadores": "não deve estar vazio"
+            }
+        }
+        """;
     @Operation(
             summary = "Inicia uma partida a partir de uma lista de jogadores",
             description = "Processa uma lista formatada e um valor para tamanho das equipes e retorna as equipes separadas por ordem de chegada",
@@ -113,7 +135,7 @@ public interface IniciarPartidaDocs {
                             schema = @Schema(implementation = InicioDTO.class),
                             examples = {
                                     @ExampleObject(
-                                            summary = "Lista completa com 21 nomes",
+                                            summary = "Lista válida",
                                             name = "Formato válido - 21 jogadores e times de tamanho 6",
                                             value = bodyEX1
                                     ),
@@ -143,18 +165,40 @@ public interface IniciarPartidaDocs {
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = InicioDTO.class),
-                            examples = @ExampleObject(value = responseEX1)
+                            examples = {
+                                    @ExampleObject(
+                                            summary = "Lista válida",
+                                            name = "Formato válido - 21 jogadores e times de tamanho 6",
+                                            value = response200
+                                    ),
+                            }
                     )
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Corpo da requisição vazio ou inválido",
+                    description = "Requisição inválida",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            examples = @ExampleObject(value = responseEX2)
+                            examples = {
+                                    @ExampleObject(
+                                            summary = "Lista sem conteúdo",
+                                            name = "Formato inválido - corpo vazio",
+                                            value = responseBodyEmpty
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Tamanho de equipes igual a zero",
+                                            name = "Formato inválido - tamanho de equipes inválido, deve ser maior que zero",
+                                            value = responseEquipeZero
+                                    ),
+                                    @ExampleObject(
+                                            summary = "Lista de jogadores vazia",
+                                            name = "Formato inválido - lista de jogadores não pode estar vazia",
+                                            value = responseJogadoresVazio
+                                    )
+                            }
                     )
             )
     })
-    public ResponseEntity<Partida> iniciarPartida(InicioDTO request);
+    ResponseEntity<Partida> iniciarPartida(InicioDTO request);
 
 }
