@@ -4,6 +4,21 @@
 
 A **Match Up API** é uma aplicação desenvolvida para organizar partidas esportivas, permitindo a criação e gerenciamento de partidas, jogadores e equipes. A API está documentada com **Swagger**, facilitando a exploração e o uso dos endpoints.
 
+## Testar a API Online (Sem Instalação)
+
+Uma versão hospedada da API está disponível para testes imediatos. Utilize o endpoint base abaixo para fazer requisições diretamente:
+
+```bash
+https://single-emmy-diegovsc42-b390a8d8.koyeb.app
+```
+
+### Acessar Documentação Swagger:
+```bash
+https://single-emmy-diegovsc42-b390a8d8.koyeb.app/swagger-ui/index.html
+```
+
+**Nota:** Todos os exemplos da seção [Exemplos de uso] podem ser testados substituindo `localhost:9090` por `https://single-emmy-diegovsc42-b390a8d8.koyeb.app` nas requisições.
+
 ## Como usar a API com Docker
 
 ### OPÇÃO 1: Usar imagem pré-construída do Docker Hub (Recomendado)
@@ -72,7 +87,7 @@ Na interface do Swagger, você poderá:
 
 Aqui está a reformulação do trecho do markdown com base na descrição da sua API:
 
-### 5. Exemplos de uso
+### Exemplos de uso
 
 Caso prefira não utilizar a interface Swagger UI, você pode interagir com a API diretamente através de ferramentas como Postman, Insomnia, cURL, etc.
 
