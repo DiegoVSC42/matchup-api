@@ -84,9 +84,8 @@ Esse método transforma qualquer tipo de lista não formatada em uma lista forma
 #### Exemplo: 
 
 **Corpo da requisição**
-```json
-{
-  "Vôlei Segunda 19h30 às 21h30
+```
+Vôlei Segunda 19h30 às 21h30
 
 1. Pedro  
 2. Lívia  
@@ -102,8 +101,7 @@ Esse método transforma qualquer tipo de lista não formatada em uma lista forma
 12. Clara  
 13. Gustavo  
 14. Beatriz  
-15. Lucas  "
-}
+15. Lucas 
 ```
 
 **Resposta:**
